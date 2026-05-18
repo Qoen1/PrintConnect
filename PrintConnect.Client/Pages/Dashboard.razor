@@ -1,0 +1,20 @@
+@page "/dashboard"
+@rendermode InteractiveServer
+
+<h3>Dashboard</h3>
+<EditForm OnValidSubmit="OnServerDataSubmitted" Model="_form">
+    <InputText @bind-Value="_form.Url"/>
+    <InputText @bind-Value="_form.Username"/>
+    <InputText @bind-Value="_form.Password"/>
+    <button type="submit">Voeg toe</button>
+</EditForm>
+
+@if (Files is not null)
+{
+    <ul>
+        @foreach (var file in Files)
+        {
+            <li>@file</li>
+        }
+    </ul>
+}
