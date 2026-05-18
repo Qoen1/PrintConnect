@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/solution files/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="PrintConnect.Adapter.PrusaLink/PrintConnect.Adapter.PrusaLink.csproj" />
   <Project Path="PrintConnect.Adapter/PrintConnect.Adapter.csproj" />
   <Project Path="PrintConnect.Application/PrintConnect.Application.csproj" />
@@ -7,4 +10,5 @@
   <Project Path="PrintConnect.Data/PrintConnect.Data.csproj" />
   <Project Path="PrintConnect.Domain/PrintConnect.Domain.csproj" />
   <Project Path="PrintConnect.Server\PrintConnect.Server.csproj" />
+  
 </Solution>
