@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Reference Include="Microsoft.EntityFrameworkCore">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\10.0.8\lib\net10.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PrintConnect.Data\PrintConnect.Data.csproj" />
+      <ProjectReference Include="..\PrintConnect.Domain\PrintConnect.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

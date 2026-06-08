@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrintConnect.Data.Postgres;
+using PrintConnect.Domain.Entities;
 using PrintConnect.Server.Components.Account;
 using PrintConnect.Server.Components;
-using PrintConnect.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,16 +56,16 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 #region Identity
 
-builder.Services.AddIdentityCore<ApplicationUser>(options =>
+builder.Services.AddIdentityCore<User>(options =>
     {
         options.SignIn.RequireConfirmedAccount = true;
         options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<PrintConnectContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddSingleton<IEmailSender<User>, IdentityNoOpEmailSender>();
 
 #endregion
 

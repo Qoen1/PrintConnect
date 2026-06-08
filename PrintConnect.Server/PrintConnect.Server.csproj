@@ -14,7 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
         <ProjectReference Include="../PrintConnect.Domain/PrintConnect.Domain.csproj" />
+        <ProjectReference Include="..\PrintConnect.Adapter\PrintConnect.Adapter.csproj" />
+        <ProjectReference Include="..\PrintConnect.Application\PrintConnect.Application.csproj" />
         <ProjectReference Include="..\PrintConnect.Client\PrintConnect.Client.csproj" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.8"/>
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.8"/>
@@ -22,6 +25,8 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.8"/>
+        <ProjectReference Include="..\PrintConnect.Data.Postgres\PrintConnect.Data.Postgres.csproj" />
+        <ProjectReference Include="..\PrintConnect.Data\PrintConnect.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
