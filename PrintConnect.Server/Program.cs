@@ -1,17 +1,25 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PrintConnect.Data.Postgres;
 using PrintConnect.Server.Components.Account;
 using PrintConnect.Server.Components;
 using PrintConnect.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region blazor
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents()
     .AddAuthenticationStateSerialization();
+
+builder.Services.AddScoped<HttpClient>();
+
+#endregion
+
+#region identity
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityRedirectManager>();
@@ -24,11 +32,29 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+#endregion
+
+#region database
+
+builder.Services.AddDbContext<PrintConnectContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsqlOptions =>
+        {
+            // Enable retry on failure for transient errors
+            npgsqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 3,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorCodesToAdd: null);
+
+            // Set command timeout for long-running queries
+            npgsqlOptions.CommandTimeout(60);
+        }));
+
+#endregion
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+#region Identity
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
     {
@@ -40,7 +66,14 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-builder.Services.AddScoped<HttpClient>();
+
+#endregion
+
+#region custom services
+
+
+
+#endregion
 
 var app = builder.Build();
 
