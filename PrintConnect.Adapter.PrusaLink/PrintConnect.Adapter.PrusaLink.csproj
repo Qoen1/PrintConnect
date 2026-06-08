@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PrintConnect.Adapter\PrintConnect.Adapter.csproj" />
+      <ProjectReference Include="..\PrintConnect.Domain\PrintConnect.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

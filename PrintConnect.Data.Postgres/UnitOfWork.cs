@@ -1,4 +1,5 @@
 using PrintConnect.Data.Postgres.Repositories;
+using PrintConnect.Data.Repositories;
 
 namespace PrintConnect.Data.Postgres;
 
@@ -18,6 +19,18 @@ public class UnitOfWork: IUnitOfWork
             if (field is null)
             {
                 field = new PrinterRepository(_context);
+            }
+            return field;
+        }
+    }
+
+    public IJobRepository JobRepository 
+    {
+        get
+        {
+            if (field is null)
+            {
+                field = new JobRepository(_context);
             }
             return field;
         }

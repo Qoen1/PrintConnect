@@ -6,4 +6,5 @@ public class Job: Entity
     public string FileName { get; set; }
     public int Progress { get; set; }
     public Printer Printer { get; set; }
+    public Guid PrinterId { get; set; }
 }

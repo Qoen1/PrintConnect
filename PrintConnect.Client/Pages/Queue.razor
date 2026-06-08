@@ -1,9 +1,9 @@
 @page "/printer/{Id:guid}/queue"
 
-@using PrintConnect.Application.Services.Queue
+@using PrintConnect.Application.Services.Job
 @using PrintConnect.Domain.Entities
 
-@inject IQueueService QueueService
+@inject IJobService JobService
 <h1>Queue</h1>
 
 @if (_printer is not null)
@@ -26,7 +26,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _printer = await QueueService.GetPrinterQueueByIdAsync(Id);
+        _printer = await JobService.GetPrinterQueueByIdAsync(Id);
         await base.OnInitializedAsync();
     }
 

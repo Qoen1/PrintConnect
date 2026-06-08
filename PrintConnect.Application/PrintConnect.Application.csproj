@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PrintConnect.Adapter\PrintConnect.Adapter.csproj" />
       <ProjectReference Include="..\PrintConnect.Data\PrintConnect.Data.csproj" />
       <ProjectReference Include="..\PrintConnect.Domain\PrintConnect.Domain.csproj" />
     </ItemGroup>
