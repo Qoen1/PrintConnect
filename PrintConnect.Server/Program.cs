@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PrintConnect.Application.Services.Queue;
+using PrintConnect.Data;
 using PrintConnect.Data.Postgres;
+using PrintConnect.Data.Postgres.Repositories;
 using PrintConnect.Domain.Entities;
 using PrintConnect.Server.Components.Account;
 using PrintConnect.Server.Components;
@@ -71,7 +74,9 @@ builder.Services.AddSingleton<IEmailSender<User>, IdentityNoOpEmailSender>();
 
 #region custom services
 
+builder.Services.AddScoped<IQueueService, QueueService>();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 #endregion
 

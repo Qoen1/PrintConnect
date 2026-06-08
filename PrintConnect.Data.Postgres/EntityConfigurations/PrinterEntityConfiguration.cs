@@ -8,6 +8,5 @@ public class PrinterEntityConfiguration: IEntityTypeConfiguration<Printer>
 {
     public void Configure(EntityTypeBuilder<Printer> model)
     {
-        model.HasKey(x => x.Id);
     }
 }

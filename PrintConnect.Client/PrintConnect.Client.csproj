@@ -19,6 +19,7 @@
       <ProjectReference Include="../PrintConnect.Domain/PrintConnect.Domain.csproj" />
       <ProjectReference Include="../PrintConnect.Adapter.PrusaLink/PrintConnect.Adapter.PrusaLink.csproj" />
       <ProjectReference Include="../PrintConnect.Domain/PrintConnect.Domain.csproj" />
+      <ProjectReference Include="..\PrintConnect.Application\PrintConnect.Application.csproj" />
     </ItemGroup>
 
 </Project>
