@@ -1,14 +1,17 @@
 @page "/printer/{Id:guid}/queue"
 
-@using PrintConnect.Application.Services.Job
+@using PrintConnect.Application.Services.Device
+@using PrintConnect.Application.Services.Queue
 @using PrintConnect.Domain.Entities
 
-@inject IJobService JobService
+@inject IQueueService QueueService
+@inject IPrinterService PrinterService
 <h1>Queue</h1>
 
 @if (_printer is not null)
 {
     <h2>@_printer.Name</h2>
+    <div><button @onclick="StartNextJobInQueue">start next job</button></div>
 }
 
 <ol>
@@ -26,8 +29,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _printer = await JobService.GetPrinterQueueByIdAsync(Id);
+        _printer = await QueueService.GetPrinterQueueByIdAsync(Id);
         await base.OnInitializedAsync();
     }
 
+    private async Task StartNextJobInQueue()
+    {
+        var result = await PrinterService.StartNextJobInQueueByIdAsync(Id);
+        if (result.IsSuccess)
+        {
+            return;
+        }
+        Console.WriteLine(result.Errors.Select(x => x.Message)
+            .Aggregate((accumulator, item) => accumulator + "; " + item));
+    }
 }

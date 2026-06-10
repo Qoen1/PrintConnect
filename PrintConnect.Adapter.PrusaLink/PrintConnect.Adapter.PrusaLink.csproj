@@ -11,4 +11,9 @@
       <ProjectReference Include="..\PrintConnect.Domain\PrintConnect.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="FluentResults" Version="4.0.0" />
+      <PackageReference Include="GcodeParserSharp" Version="1.1.4" />
+    </ItemGroup>
+
 </Project>

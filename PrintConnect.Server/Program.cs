@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrintConnect.Adapter.Factories;
 using PrintConnect.Adapter.PrusaLink.Factories;
+using PrintConnect.Application.Services.Device;
 using PrintConnect.Application.Services.File;
-using PrintConnect.Application.Services.Job;
+using PrintConnect.Application.Services.Queue;
 using PrintConnect.Data;
 using PrintConnect.Data.Postgres;
 using PrintConnect.Domain.Entities;
@@ -76,10 +77,12 @@ builder.Services.AddSingleton<IEmailSender<User>, IdentityNoOpEmailSender>();
 
 #region custom services
 
-builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<IQueueService, QueueService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IPrinterService, PrinterService>();
 
 builder.Services.AddScoped<IFileAdapterFactory, FileAdapterFactory>();
+builder.Services.AddScoped<IStatusAdapterFactory, StatusAdapterFactory>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

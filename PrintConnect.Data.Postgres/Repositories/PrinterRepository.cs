@@ -13,9 +13,9 @@ public class PrinterRepository: IPrinterRepository
         _context = context;
     }
 
-    public Task<Printer> GetPrinterJobsByIdAsync(Guid printerId)
+    public Task<List<Job>> GetPrinterPendingJobsByIdAsync(Guid printerId)
     {
-        return _context.Printers.Where(x => x.Id == printerId).Include(x => x.Jobs).FirstOrDefaultAsync();
+        return _context.Jobs.Where(x => x.PrinterId == printerId && x.StartedAt == null).ToListAsync();
     }
 
     public Task<Printer?> GetPrinterByIdAsync(Guid printerId)
