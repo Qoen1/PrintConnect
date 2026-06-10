@@ -11,6 +11,7 @@ public class Printer: Entity
     public string Description { get; set; }
     public string Model { get; set; }
     public PrinterStatus Status { get; set; }
+    public List<Job> Jobs { get; set; }
 
     private Printer()
     {

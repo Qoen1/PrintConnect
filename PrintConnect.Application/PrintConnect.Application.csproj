@@ -6,4 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PrintConnect.Adapter\PrintConnect.Adapter.csproj" />
+      <ProjectReference Include="..\PrintConnect.Data\PrintConnect.Data.csproj" />
+      <ProjectReference Include="..\PrintConnect.Domain\PrintConnect.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentResults" Version="4.0.0" />
+    </ItemGroup>
+
 </Project>
