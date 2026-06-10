@@ -1,27 +1,71 @@
 @if (Printer is not null)
 {
-    <div>
-        <div class="top-row px-4" style="display: flex">
-            <div style="display: block">
-                <div style="display: flex">
+    <div class="printer-layout">
+
+        <header class="printer-header">
+
+            <div class="printer-header__main">
+
+                <div class="printer-title-row">
                     <h1>@Printer.Name</h1>
-                    <div>@Printer.Status</div>
-                    <div> potentially hidden progress precentage</div>
+
+                    <span class="status-badge">
+                        @Printer.Status
+                    </span>
+
+                    @* @if (Printer.Progress > 0) *@
+                    @* { *@
+                        <span class="progress-badge">
+                            @* @Printer.Progress% *@ ..%
+                        </span>
+                    @* } *@
                 </div>
-                <div style="display: flex; overflow: scroll">
-                    <div>nozzle temp</div>
-                    <div>bed temp</div>
-                    <div>material</div>
-                    <div>speed</div>
+
+                <div class="printer-stats">
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Nozzle temperature</span>
+                        <span class="stat-card__value">..°C</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Bed temperature</span>
+                        <span class="stat-card__value">..°C</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Material</span>
+                        <span class="stat-card__value">...</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Speed</span>
+                        <span class="stat-card__value">...%</span>
+                    </div>
+
                 </div>
+
             </div>
-            <div style="display: flex;align-items: flex-end">
-                <button>ready</button>
+
+            <div class="printer-header__actions">
+                <button class="ready-btn">
+                    Set Ready
+                </button>
             </div>
-        </div>
-        <nav style="display: flex;">
-            <NavLink href="@($"/printer/{Printer.Id}/files")">Files</NavLink>
-            <NavLink href="@($"/printer/{Printer.Id}/queue")">Queue</NavLink>
+
+        </header>
+
+        <nav class="printer-nav">
+
+            <NavLink class="printer-nav__item"
+                     href="@($"/printer/{Printer.Id}/files")">
+                Files
+            </NavLink>
+
+            <NavLink class="printer-nav__item"
+                     href="@($"/printer/{Printer.Id}/queue")">
+                Queue
+            </NavLink>
         </nav>
     </div>
 }
