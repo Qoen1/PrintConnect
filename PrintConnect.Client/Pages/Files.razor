@@ -1,0 +1,39 @@
+@page "/printer/{Id:guid}/files"
+
+@using PrintConnect.Application.Services.File
+@using PrintConnect.Application.Services.Queue
+@using PrintConnect.Domain.Entities
+
+@inject IFileService FileService
+@inject IQueueService QueueService
+
+<h3>Files</h3>
+<ul>
+    @foreach (var file in _files)
+    {
+        <li style="display: flex">
+            <div>
+                @file.DisplayName
+            </div>
+            <div><button @onclick="@(async () => await AddFileToQueue($"{file.Path}/{file.Name}"))">add job</button></div>
+        </li>
+    }
+</ul>
+    
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+    private List<PrinterFile> _files = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _files = await FileService.GetPrinterFilesByIdAsync(Id);
+        await base.OnInitializedAsync();
+    }
+
+    private Task AddFileToQueue(string filepath)
+    {
+        return QueueService.AddPrinterJobByIdAsync(Id, filepath);
+    }
+}

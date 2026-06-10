@@ -1,17 +1,31 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PrintConnect.Adapter.Factories;
+using PrintConnect.Adapter.PrusaLink.Factories;
+using PrintConnect.Application.Services.Device;
+using PrintConnect.Application.Services.File;
+using PrintConnect.Application.Services.Queue;
+using PrintConnect.Data;
+using PrintConnect.Data.Postgres;
+using PrintConnect.Domain.Entities;
 using PrintConnect.Server.Components.Account;
 using PrintConnect.Server.Components;
-using PrintConnect.Server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region blazor
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents()
     .AddAuthenticationStateSerialization();
+
+builder.Services.AddScoped<HttpClient>();
+
+#endregion
+
+#region identity
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityRedirectManager>();
@@ -24,23 +38,55 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
+#endregion
+
+#region database
+
+builder.Services.AddDbContext<PrintConnectContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        npgsqlOptions =>
+        {
+            // Enable retry on failure for transient errors
+            npgsqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 3,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorCodesToAdd: null);
+
+            // Set command timeout for long-running queries
+            npgsqlOptions.CommandTimeout(60);
+        }));
+
+#endregion
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options =>
+#region Identity
+
+builder.Services.AddIdentityCore<User>(options =>
     {
         options.SignIn.RequireConfirmedAccount = true;
         options.Stores.SchemaVersion = IdentitySchemaVersions.Version3;
     })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<PrintConnectContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddSingleton<IEmailSender<User>, IdentityNoOpEmailSender>();
+
+#endregion
+
+#region custom services
+
+builder.Services.AddScoped<IQueueService, QueueService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IPrinterService, PrinterService>();
+
+builder.Services.AddScoped<IFileAdapterFactory, FileAdapterFactory>();
+builder.Services.AddScoped<IStatusAdapterFactory, StatusAdapterFactory>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+#endregion
 
 var app = builder.Build();
 
