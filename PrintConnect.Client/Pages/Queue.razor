@@ -6,6 +6,9 @@
 
 @inject IQueueService QueueService
 @inject IPrinterService PrinterService
+
+<PrinterNavBar Printer="_printer"/>
+
 <h1>Queue</h1>
 
 @if (_printer is not null)

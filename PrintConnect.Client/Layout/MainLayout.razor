@@ -1,5 +1,4 @@
-﻿@using PrintConnect.Client.Pages
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 @inject NavigationManager NavigationManager
 
@@ -9,10 +8,6 @@
     </div>
 
     <main>
-        @if (NavigationManager.Uri.Contains("/printer/"))
-        {
-            <PrinterNavBar/>
-        }
         <article class="content px-4">
             @Body
         </article>

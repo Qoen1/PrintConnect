@@ -1,11 +1,15 @@
 @page "/printer/{Id:guid}/files"
 
+@using PrintConnect.Application.Services.Device
 @using PrintConnect.Application.Services.File
 @using PrintConnect.Application.Services.Queue
 @using PrintConnect.Domain.Entities
 
 @inject IFileService FileService
 @inject IQueueService QueueService
+@inject IPrinterService PrinterService
+
+<PrinterNavBar Printer="_printer"/>
 
 <h3>Files</h3>
 <ul>
@@ -24,13 +28,18 @@
 @code {
     [Parameter]
     public Guid Id { get; set; }
+
+    private Printer? _printer;
     private List<PrinterFile> _files = [];
 
     protected override async Task OnInitializedAsync()
     {
+        _printer = await PrinterService.GetPrinterInfoById(Id);
         _files = await FileService.GetPrinterFilesByIdAsync(Id);
         await base.OnInitializedAsync();
     }
+    
+    
 
     private Task AddFileToQueue(string filepath)
     {

@@ -1,21 +1,27 @@
 @if (Printer is not null)
 {
-    <div class="top-row px-4" style="display: flex">
-        <div style="display: block">
-            <div style="display: flex">
-                <h1>@Printer.Name</h1>
-                <div>@Printer.Status</div>
-                <div> potentially hidden progress precentage</div>
+    <div>
+        <div class="top-row px-4" style="display: flex">
+            <div style="display: block">
+                <div style="display: flex">
+                    <h1>@Printer.Name</h1>
+                    <div>@Printer.Status</div>
+                    <div> potentially hidden progress precentage</div>
+                </div>
+                <div style="display: flex; overflow: scroll">
+                    <div>nozzle temp</div>
+                    <div>bed temp</div>
+                    <div>material</div>
+                    <div>speed</div>
+                </div>
             </div>
-            <div style="display: flex; overflow: scroll">
-                <div>nozzle temp</div>
-                <div>bed temp</div>
-                <div>material</div>
-                <div>speed</div>
+            <div style="display: flex;align-items: flex-end">
+                <button>ready</button>
             </div>
         </div>
-        <div style="display: flex;align-items: flex-end">
-            <button @onclick="SetPrinterReady">ready</button>
-        </div>
+        <nav style="display: flex;">
+            <NavLink href="@($"/printer/{Printer.Id}/files")">Files</NavLink>
+            <NavLink href="@($"/printer/{Printer.Id}/queue")">Queue</NavLink>
+        </nav>
     </div>
 }
