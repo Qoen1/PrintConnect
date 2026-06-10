@@ -1,0 +1,104 @@
+.print-file-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1rem;
+
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+
+    transition: background 0.15s ease;
+}
+
+.print-file-row:hover {
+    background: #f8fafc;
+}
+
+.file-checkbox {
+    width: 18px;
+    height: 18px;
+}
+
+.file-thumbnail {
+    width: 110px;
+    height: 110px;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+
+    background: #f3f4f6;
+}
+
+.file-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name {
+    flex: 1;
+    font-size: 1.3rem;
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 1rem;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.meta-item {
+    min-width: 100px;
+}
+
+.meta-label {
+    font-size: .75rem;
+    color: #6b7280;
+    margin-bottom: .25rem;
+}
+
+.meta-value {
+    font-size: 1rem;
+    color: #111827;
+}
+
+.file-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.print-btn {
+    border: 1px solid #d1d5db;
+    background: white;
+
+    color: #111827;
+
+    padding: .75rem .75rem;
+
+    border-radius: 8px;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: all .15s ease;
+}
+
+.print-btn:hover {
+    border-color: #f97316;
+    color: #f97316;
+}
+
+.print-btn:active {
+    transform: scale(.98);
+}
