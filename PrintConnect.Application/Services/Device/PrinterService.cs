@@ -37,4 +37,6 @@ public class PrinterService: IPrinterService
         await _unitOfWork.SaveChangesAsync();
         return result;
     }
+
+    public Task<Printer?> GetPrinterInfoById(Guid printerId) => _unitOfWork.PrinterRepository.GetPrinterByIdAsync(printerId);
 }

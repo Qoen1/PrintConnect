@@ -1,0 +1,71 @@
+@if (Printer is not null)
+{
+    <div class="printer-layout">
+
+        <header class="printer-header">
+
+            <div class="printer-header__main">
+
+                <div class="printer-title-row">
+                    <h1>@Printer.Name</h1>
+
+                    <span class="status-badge">
+                        @Printer.Status
+                    </span>
+
+                    @* @if (Printer.Progress > 0) *@
+                    @* { *@
+                        <span class="progress-badge">
+                            @* @Printer.Progress% *@ ..%
+                        </span>
+                    @* } *@
+                </div>
+
+                <div class="printer-stats">
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Nozzle temperature</span>
+                        <span class="stat-card__value">..°C</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Bed temperature</span>
+                        <span class="stat-card__value">..°C</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Material</span>
+                        <span class="stat-card__value">...</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <span class="stat-card__label">Speed</span>
+                        <span class="stat-card__value">...%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="printer-header__actions">
+                <button class="ready-btn">
+                    Set Ready
+                </button>
+            </div>
+
+        </header>
+
+        <nav class="printer-nav">
+
+            <NavLink class="printer-nav__item"
+                     href="@($"/printer/{Printer.Id}/files")">
+                Files
+            </NavLink>
+
+            <NavLink class="printer-nav__item"
+                     href="@($"/printer/{Printer.Id}/queue")">
+                Queue
+            </NavLink>
+        </nav>
+    </div>
+}

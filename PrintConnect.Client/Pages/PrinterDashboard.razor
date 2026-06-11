@@ -1,0 +1,24 @@
+@page "/printer/{id:guid}"
+<h3>PrinterDashboard</h3>
+
+this page will display a overview of the printer, and the current job status
+
+{
+  "mmu": false,
+  "name": "MuadDib",
+  "location": "Arrakis",
+  "farm_mode": false,
+  "nozzle_diameter": 0.4,
+  "min_extrusion_temp": 170,
+  "serial": "CZPX4720X004XC34242",
+  "sd_ready": true,
+  "active_camera": true,
+  "hostname": "prusa-mk3.lan",
+  "port": "/dev/tty",
+  "network_error_chime": true
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+}

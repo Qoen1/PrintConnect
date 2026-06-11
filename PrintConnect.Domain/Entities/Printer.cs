@@ -22,9 +22,19 @@ public class Printer: Entity
         Description = string.Empty;
         Model = string.Empty;
     }
-    public static Printer Create()
+    public static Printer Create(string url, string username, string password, string name, string description, string model)
     {
-        //TODO: fix
-        return new Printer();
+        return new Printer
+        {
+            Url = url,
+            Username = username,
+            Password = password,
+            Name = name,
+            Description = description,
+            Model = model,
+            Status = PrinterStatus.Offline,
+            Id =  Guid.NewGuid(),
+            CreatedAt =  DateTime.UtcNow
+        };
     }
 }
